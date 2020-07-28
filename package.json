@@ -1,7 +1,7 @@
 {
   "name": "biz-ops-client",
   "version": "1.0.0",
-  "description": "",
+  "description": "A thin wrapper around the Fetch API to safely retrieve data from the Biz Ops GraphQL API.",
   "main": "lib/index.js",
   "scripts": {
     "lint": "make verify",
@@ -17,5 +17,8 @@
   "dependencies": {
     "lru-cache": "^6.0.0",
     "node-fetch": "^2.6.0"
+  },
+  "engines": {
+    "node": ">= 12.0.0"
   }
 }
