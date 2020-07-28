@@ -1,0 +1,11 @@
+**/__test__/**
+
+.editorconfig
+.eslintcache
+.eslintignore
+.eslintrc.js
+.huskyrc.js
+.lintstagedrc.js
+.prettierignore
+.prettierrc.js
+Makefile
