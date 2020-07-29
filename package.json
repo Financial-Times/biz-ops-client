@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "http-errors": "^1.8.0",
+    "mixin-deep": "^2.0.1",
     "node-fetch": "^2.6.0",
     "url-join": "^4.0.0"
   },
