@@ -72,9 +72,11 @@ The `BizOpsClient` class accepts the following parameters:
 
 ### API
 
+All methods will return a promise. If the API responds with an unsuccessful status code the appropriate [HTTP error](https://www.npmjs.com/package/http-errors) will be thrown.
+
 #### `request(query: string, variables?: object)`
 
-Returns a promise which will resolve with the data returned from the GraphQL API. If the API request fails or the response data includes an error this will throw an `BizOpsClientError`.
+Returns a promise which will resolve with the data returned from the GraphQL API. If the response data includes an error this will throw a `GraphQLError`.
 
 ## Examples
 
