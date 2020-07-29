@@ -42,7 +42,6 @@ npm install -S @financial-times/biz-ops-client
 
 -   Stop writing boilerplate, write your queries and get on with your day!
 -   Detailed error codes and messages when things don't go to plan
--   Optionally supports in-memory caching of response data
 
 ## Usage
 
@@ -63,12 +62,11 @@ The Biz Ops client provides [methods](#api) to retrieve data from the Biz Ops Gr
 
 The `BizOpsClient` class accepts the following parameters:
 
-| Option        | Type   | Required | Description                                                                                                                                   |
-| ------------- | ------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `apiKey`      | String | Yes      | API key for the [FT API Gateway](http://developer.ft.com)                                                                                     |
-| `systemCode`  | String | Yes      | A Biz Ops system code which identifies the service making requests                                                                            |
-| `cacheLength` | Number |          | Time in milliseconds to store successful responses in memory, defaults to 1 minute if `NODE_ENV` is set to `"production"` otherwise disabled. |
-| `host`        | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`.                                                                          |
+| Option       | Type   | Required | Description                                                          |
+| ------------ | ------ | -------- | -------------------------------------------------------------------- |
+| `apiKey`     | String | Yes      | API key for the [FT API Gateway](http://developer.ft.com)            |
+| `systemCode` | String | Yes      | A Biz Ops system code which identifies the service making requests   |
+| `host`       | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`. |
 
 ### API
 

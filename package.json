@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "http-errors": "^1.8.0",
-    "lru-cache": "^6.0.0",
     "node-fetch": "^2.6.0",
     "url-join": "^4.0.0"
   },
