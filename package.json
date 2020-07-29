@@ -1,7 +1,7 @@
 {
   "name": "biz-ops-client",
   "version": "1.0.0",
-  "description": "A thin wrapper around the Fetch API to safely retrieve data from the Biz Ops GraphQL API.",
+  "description": "Safely send and retrieve data from the FT Biz Ops API.",
   "main": "lib/index.js",
   "scripts": {
     "lint": "make verify",

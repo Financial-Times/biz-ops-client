@@ -2,7 +2,7 @@
 
 [![CircleCI](https://img.shields.io/circleci/project/github/Financial-Times/biz-ops-client/master.svg)](https://circleci.com/gh/Financial-Times/biz-ops-client) [![NPM version](https://img.shields.io/npm/v/@financial-times/biz-ops-client.svg)](https://www.npmjs.com/package/@financial-times/biz-ops-client)
 
-A thin wrapper around the [Fetch API][1] to safely retrieve data from the [Biz Ops GraphQL API][2].
+Safely send and retrieve data from the [FT Biz Ops API][2].
 
 ```js
 const { BizOpsClient } = require('@financial-times/biz-ops-client');
@@ -18,7 +18,7 @@ const query = `{
 	}
 }`;
 
-const result = await bizOps.request(query);
+const result = await bizOps.graphQL.get(query);
 ```
 
 [1]: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
@@ -40,8 +40,11 @@ npm install -S @financial-times/biz-ops-client
 
 ## Features
 
--   Stop writing boilerplate, write your queries and get on with your day!
+-   Full coverage for the Biz Ops API\*
+-   Stop writing boilerplate, write your requests and get on with your day!
 -   Detailed error codes and messages when things don't go to plan
+
+\* Coming soon!
 
 ## Usage
 
@@ -56,7 +59,7 @@ const client = new BizOpsClient({
 });
 ```
 
-The Biz Ops client provides [methods](#api) to retrieve data from the Biz Ops GraphQL API.
+Once initialised the Biz Ops client provides [methods](#api) to retrieve data from the Biz Ops API.
 
 ### Options
 
@@ -69,29 +72,29 @@ The `BizOpsClient` class accepts the following parameters:
 | `userID`     | String | Yes\*    | A user ID which identifies who is making a request                   |
 | `host`       | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`. |
 
-\* you must configure at least _one of_ `systemCode` or `userID`.
+\* you must configure at least one of `systemCode` or `userID`.
 
 ### API
 
-All methods will return a promise. If the API responds with an unsuccessful status code the appropriate [HTTP error](https://www.npmjs.com/package/http-errors) will be thrown.
+All methods return a promise. If the API responds with an unsuccessful status code an appropriate [HTTP error](#errors) will be thrown.
 
 #### `graphQL.get(query: string, variables?: object)`
 
-Fetches data from the Biz Ops GraphQL API using a `GET` request. Use this if data does not need to be real-time. Returns a promise which will resolve with the data returned.
+Fetches data from the Biz Ops GraphQL API using a `GET` request. You should use this if data does not need to be up-to-date. Returns a promise which will resolve to the data returned. Will throw a [`GraphQLError`](#errors) if the returned data includes any errors.
 
 #### `graphQL.post(query: string, variables?: object)`
 
-Fetches data from the Biz Ops GraphQL API using a `POST` request. Use this if data does should always be up-to-date. Returns a promise which will resolve with the data returned.
+Fetches data from the Biz Ops GraphQL API using a `POST` request. You should use this if data must always be up-to-date. Returns a promise which will resolve to the data returned. Will throw a [`GraphQLError`](#errors) if the returned data includes any errors.
 
 ## Errors
 
 ### `HTTPError`
 
-TODO
+All non-200 responses will throw an error created by the [`http-errors`](https://www.npmjs.com/package/http-errors) package.
 
 ### `ConfigurationError`
 
-TODO
+Will be thrown when initialising the `BizOpsClient` class with incomplete configuration or when calling methods with incorrect arguments.
 
 ### `NotImplementedError`
 
@@ -99,28 +102,4 @@ TODO
 
 ### `GraphQLError`
 
-TODO
-
-## Examples
-
-### Overriding options
-
-```js
-request(query, null, {});
-```
-
-### Using variables
-
-```js
-request(query, {});
-```
-
-### Error handling
-
-```js
-try {
-	await request(query);
-} catch (error) {
-	console.error(error.code);
-}
-```
+Thrown when responses for the GraphQL API includes any [errors](https://github.com/graphql/graphql-spec/blob/master/spec/Section%207%20--%20Response.md#errors). These errors include a `details` property which can be inspected to find out more.
