@@ -2,7 +2,7 @@
 
 [![CircleCI](https://img.shields.io/circleci/project/github/Financial-Times/biz-ops-client/master.svg)](https://circleci.com/gh/Financial-Times/biz-ops-client) [![NPM version](https://img.shields.io/npm/v/@financial-times/biz-ops-client.svg)](https://www.npmjs.com/package/@financial-times/biz-ops-client)
 
-Safely send and retrieve data from the [FT Biz Ops API][2].
+Safely send and retrieve data from the [FT Biz Ops API][1].
 
 ```js
 const { BizOpsClient } = require('@financial-times/biz-ops-client');
@@ -21,8 +21,7 @@ const query = `{
 const result = await bizOps.graphQL.get(query);
 ```
 
-[1]: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
-[2]: https://biz-ops.in.ft.com/api-explorer
+[1]: https://github.com/Financial-Times/biz-ops-api#api
 
 ## Installation
 
@@ -76,15 +75,33 @@ The `BizOpsClient` class accepts the following parameters:
 
 ### API
 
-All methods return a promise. If the API responds with an unsuccessful status code an appropriate [HTTP error](#errors) will be thrown.
+All methods return a promise. If the API responds with any unsuccessful (non-200) status code the promise will be rejected with the corresponding [HTTP error](#errors).
 
 #### `graphQL.get(query: string, variables?: object)`
 
-Fetches data from the Biz Ops GraphQL API using a `GET` request. You should use this if data does not need to be up-to-date. Returns a promise which will resolve to the data returned. Will throw a [`GraphQLError`](#errors) if the returned data includes any errors.
+Fetches data from the Biz Ops GraphQL API using a `GET` request. You should use this if data does not need to be up-to-date. Resolves to the data returned. Rejects with a [`GraphQLError`](#errors) if the returned data includes any errors.
 
 #### `graphQL.post(query: string, variables?: object)`
 
-Fetches data from the Biz Ops GraphQL API using a `POST` request. You should use this if data must always be up-to-date. Returns a promise which will resolve to the data returned. Will throw a [`GraphQLError`](#errors) if the returned data includes any errors.
+Fetches data from the Biz Ops GraphQL API using a `POST` request. You should use this if data must always be up-to-date. Resolves to the data returned. Reject with a [`GraphQLError`](#errors) if the returned data includes any errors.
+
+#### `node.head(type: string, code: string)`
+
+Verifies if a record exists. Resolves to `true` if the request is successful. Rejects with a [`NotFound`](#errors) error if the requested record cannot be found.
+
+#### `node.post(type: string, code: string, body: object, options?: object)`
+
+Creates a new record. Resolves to `true` if the request is successful. Rejects with a [`ValidationError`](#errors) if the new data does not match the [schema].
+
+#### `node.patch(type: string, code: string, body: object, options?: object)`
+
+Updates an existing record. Resolves to `true` if the request is successful. Rejects with a [`ValidationError`](#errors) if the updated data does not match the [schema].
+
+#### `node.delete(type: string, code: string, options?: object)`
+
+Deletes an existing record. Resolves to `true` if the request is successful. Rejects with a [`NotFound`](#errors) error if the requested record cannot be found.
+
+[schema]: https://github.com/Financial-Times/biz-ops-schema/tree/master/schema
 
 ## Errors
 
@@ -96,10 +113,14 @@ All non-200 responses will throw an error created by the [`http-errors`](https:/
 
 Will be thrown when initialising the `BizOpsClient` class with incomplete configuration or when calling methods with incorrect arguments.
 
+### `ValidationError`
+
+TODO
+
 ### `NotImplementedError`
 
 TODO
 
 ### `GraphQLError`
 
-Thrown when responses for the GraphQL API includes any [errors](https://github.com/graphql/graphql-spec/blob/master/spec/Section%207%20--%20Response.md#errors). These errors include a `details` property which can be inspected to find out more.
+Thrown when responses from the GraphQL API include any [errors](https://github.com/graphql/graphql-spec/blob/master/spec/Section%207%20--%20Response.md#errors). This includes a `details` property which can be inspected to find out more.
