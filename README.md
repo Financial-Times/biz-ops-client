@@ -72,9 +72,31 @@ The `BizOpsClient` class accepts the following parameters:
 
 All methods will return a promise. If the API responds with an unsuccessful status code the appropriate [HTTP error](https://www.npmjs.com/package/http-errors) will be thrown.
 
-#### `request(query: string, variables?: object)`
+#### `graphQL.get(query: string, variables?: object)`
 
-Returns a promise which will resolve with the data returned from the GraphQL API. If the response data includes an error this will throw a `GraphQLError`.
+Fetches data from the Biz Ops GraphQL API using a `GET` request. Use this if data does not need to be real-time. Returns a promise which will resolve with the data returned.
+
+#### `graphQL.post(query: string, variables?: object)`
+
+Fetches data from the Biz Ops GraphQL API using a `POST` request. Use this if data does should always be up-to-date. Returns a promise which will resolve with the data returned.
+
+## Errors
+
+### `HTTPError`
+
+TODO
+
+### `ConfigurationError`
+
+TODO
+
+### `NotImplementedError`
+
+TODO
+
+### `GraphQLError`
+
+TODO
 
 ## Examples
 
