@@ -65,8 +65,11 @@ The `BizOpsClient` class accepts the following parameters:
 | Option       | Type   | Required | Description                                                          |
 | ------------ | ------ | -------- | -------------------------------------------------------------------- |
 | `apiKey`     | String | Yes      | API key for the [FT API Gateway](http://developer.ft.com)            |
-| `systemCode` | String | Yes      | A Biz Ops system code which identifies the service making requests   |
+| `systemCode` | String | Yes\*    | A Biz Ops system code which identifies the service making requests.  |
+| `userID`     | String | Yes\*    | A user ID which identifies who is making a request                   |
 | `host`       | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`. |
+
+\* you must configure at least _one of_ `systemCode` or `userID`.
 
 ### API
 
