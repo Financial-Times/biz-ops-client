@@ -46,9 +46,9 @@ jobs:
           name: Install dependencies
           command: HUSKY_SKIP_INSTALL=1 make install
       - *create_npm_cache
-      - run:
-          name: Fetch environment variables
-          command: make env
+      # - run:
+      #     name: Fetch environment variables
+      #     command: make env
       - persist_to_workspace:
           root: *workspace_root
           paths:

@@ -10,4 +10,3 @@ node_modules
 .prettierignore
 .prettierrc.js
 npm-debug.log
-package-lock.json
