@@ -75,7 +75,7 @@ The `BizOpsClient` class accepts the following parameters:
 
 ### API
 
-All methods return a promise. If the API responds with any unsuccessful (non-20x) status code the promise will be rejected with the corresponding [HTTP error](#errors).
+All methods return a promise. If the API responds with an unsuccessful (non-20x) status code then the promise will be rejected with a corresponding [HTTP error](#errors).
 
 #### `graphQL.get(query: string, variables?: object)`
 
@@ -83,31 +83,45 @@ Fetches data from the Biz Ops GraphQL API using a `GET` request. You should use 
 
 #### `graphQL.post(query: string, variables?: object)`
 
-Fetches data from the Biz Ops GraphQL API using a `POST` request. You should use this if data must always be up-to-date. Resolves to the data returned. Reject with a [`GraphQLError`](#errors) if the returned data includes any errors.
+Fetches data from the Biz Ops GraphQL API using a `POST` request. You should use this if data must always be up-to-date. Resolves to the data returned. Rejects with a [`GraphQLError`](#errors) if the returned data includes any errors.
 
 #### `node.head(type: string, code: string)`
 
 Verifies if a record exists. Resolves to `true` if the request is successful. Rejects with a [`NotFound`](#errors) error if the requested record cannot be found.
 
-#### `node.post(type: string, code: string, body: object, options?: object)`
+#### `node.post(type: string, code: string, body: object, params?: object)`
 
-Creates a new record. Resolves to the confirmation details if the request is successful. Rejects with a [`ValidationError`](#errors) if the new data does not match the [schema].
+Creates a new record. Resolves to the confirmation details if the request is successful. Rejects with a [`BadRequest`](#errors) error if the data does not match the [schema].
 
-#### `node.patch(type: string, code: string, body: object, options?: object)`
+This method also accepts additional URL parameters to be set:
 
-Updates an existing record. Resolves to the confirmation details if the request is successful. Rejects with a [`ValidationError`](#errors) if the updated data does not match the [schema].
+-   `upsert` a boolean which allows the creation of any new nodes needed to create relationships.
+-   `lockFields` a list of fields to prevent any other system writing these fields, see [field locking] for more information.
+-   `unlockFields` a list of fields to enable any system to write these fields, see [field locking] for more information.
 
-#### `node.delete(type: string, code: string, options?: object)`
+#### `node.patch(type: string, code: string, body: object, params?: object)`
 
-Deletes an existing record. Resolves to `true` if the request is successful. Rejects with a [`NotFound`](#errors) error if the requested record cannot be found.
+Updates an existing record. Resolves to the confirmation details if the request is successful. Rejects with a [`BadRequest`](#errors) error if the data does not match the [schema].
+
+This method also accepts additional URL parameters to be set:
+
+-   `upsert` a boolean which allows the creation of any new nodes needed to create relationships.
+-   `lockFields` a list of fields to prevent any other system writing these fields, see [field locking] for more information.
+-   `unlockFields` a list of fields to enable any system to write these fields, see [field locking] for more information.
+-   `relationshipAction` either `"merge"` or `"replace"` which specifies the behaviour when modifying relationships.
+
+#### `node.delete(type: string, code: string)`
+
+Deletes an existing record. Resolves to `true` if the request is successful. Rejects with a [`NotFound`](#errors) error if the requested record cannot be found or a [`Conflict`](#errors) error if the record cannot be deleted.
 
 [schema]: https://github.com/Financial-Times/biz-ops-schema/tree/master/schema
+[field locking]: https://github.com/Financial-Times/biz-ops-api/blob/master/ENDPOINTS.md#field-locking
 
 ## Errors
 
 ### `HTTPError`
 
-All non-20x responses will throw a corresponding error created by the [`http-errors`](https://www.npmjs.com/package/http-errors) package. If the API returns a detailed error this will be used as the error message. The raw response may be appended to the error as a `response` property for further inspection.
+All non-20x responses will throw a corresponding error created by the [`http-errors`](https://www.npmjs.com/package/http-errors) package. This includes `BadRequest`, `NotFound`, and `InternalServerError` errors. If the API returns a detailed error then this will be used as the error message. The raw response may be appended to the error as the `details` property for further inspection.
 
 ### `ConfigurationError`
 
