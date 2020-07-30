@@ -1,5 +1,5 @@
 {
-  "name": "biz-ops-client",
+  "name": "@financial-times/biz-ops-client",
   "version": "1.0.0",
   "description": "Safely send and retrieve data from the FT Biz Ops API.",
   "main": "lib/index.js",
