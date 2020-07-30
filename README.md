@@ -91,11 +91,11 @@ Verifies if a record exists. Resolves to `true` if the request is successful. Re
 
 #### `node.post(type: string, code: string, body: object, options?: object)`
 
-Creates a new record. Resolves to `true` if the request is successful. Rejects with a [`ValidationError`](#errors) if the new data does not match the [schema].
+Creates a new record. Resolves to the confirmation details if the request is successful. Rejects with a [`ValidationError`](#errors) if the new data does not match the [schema].
 
 #### `node.patch(type: string, code: string, body: object, options?: object)`
 
-Updates an existing record. Resolves to `true` if the request is successful. Rejects with a [`ValidationError`](#errors) if the updated data does not match the [schema].
+Updates an existing record. Resolves to the confirmation details if the request is successful. Rejects with a [`ValidationError`](#errors) if the updated data does not match the [schema].
 
 #### `node.delete(type: string, code: string, options?: object)`
 
