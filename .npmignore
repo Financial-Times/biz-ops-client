@@ -1,6 +1,7 @@
 **/__test__/**
 
 .editorconfig
+.env
 .eslintcache
 .eslintignore
 .eslintrc.js

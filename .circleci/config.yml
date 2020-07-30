@@ -1,0 +1,122 @@
+version: 2.1
+
+orbs:
+  ft-snyk-orb: financial-times/ft-snyk-orb@0
+
+references:
+  default_container_config: &default_container_config
+    docker:
+      - image: circleci/node:12.16
+
+  workspace_root: &workspace_root ~/project
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+  npm_cache_key: &npm_cache_key cache-v001-{{ .Branch }}-{{ checksum "./package-lock.json" }}
+
+  create_npm_cache: &create_npm_cache
+    save_cache:
+      key: *npm_cache_key
+      paths:
+        - ./node_modules/
+
+  restore_npm_cache: &restore_npm_cache
+    restore_cache:
+      keys:
+        - *npm_cache_key
+
+  filters_main_branch: &filters_main_branch
+    branches:
+      only:
+        - main
+
+  only_version_tags: &only_version_tags
+    tags:
+      only: /^v[0-9]+\.[0-9]+\.[0-9]+(-(alpha|beta)\.\d+)?$/
+
+jobs:
+  install:
+    <<: *default_container_config
+    steps:
+      - checkout
+      - *restore_npm_cache
+      - run:
+          name: Install dependencies
+          command: HUSKY_SKIP_INSTALL=1 make install
+      - *create_npm_cache
+      - run:
+          name: Fetch environment variables
+          command: make env
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .
+
+  build:
+    <<: *default_container_config
+    steps:
+      - *attach_workspace
+      - run:
+          name: Run build
+          command: make build
+
+  test:
+    <<: *default_container_config
+    steps:
+      - *attach_workspace
+      - run:
+          name: Run verify
+          command: make verify -j 3
+      - run:
+          name: Run unit tests
+          command: make test
+
+  publish:
+    <<: *default_container_config
+    steps:
+      - *attach_workspace
+      - run:
+          name: Set npm credentials
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > ~/.npmrc
+      - run:
+          name: Bump version number
+          command: npm version ${CIRCLE_TAG} --no-git-tag-version
+      - run:
+          name: Publish to npm registry
+          command: npm publish
+          # command: |
+          #   export DIST_TAG=$(npx npm-dist-tag)
+          #   if [[ $DIST_TAG ]]; then npm publish -- --access=public --tag=${DIST_TAG}; fi
+
+workflows:
+  version: 2
+
+  install-build-test:
+    jobs:
+      - install:
+          context: rel-eng-creds
+      - build:
+          requires:
+            - install
+      - test:
+          requires:
+            - install
+            - build
+      - ft-snyk-orb/scan-js-packages:
+          context: rel-eng-creds
+          requires:
+            - install
+            - build
+      - publish:
+          context: rel-eng-creds
+          requires:
+            - install
+            - build
+            - test
+            - ft-snyk-orb/scan-js-packages
+          filters:
+            <<: *only_version_tags
+            branches:
+              ignore: /.*/
