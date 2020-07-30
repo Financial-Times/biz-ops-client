@@ -103,7 +103,7 @@ jobs:
           command: npm version ${CIRCLE_TAG} --no-git-tag-version
       - run:
           name: Publish to npm registry
-          command: npm publish
+          command: npm publish --access=public
           # command: |
           #   export DIST_TAG=$(npx npm-dist-tag)
           #   if [[ $DIST_TAG ]]; then npm publish -- --access=public --tag=${DIST_TAG}; fi
