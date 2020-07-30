@@ -113,10 +113,6 @@ All non-20x responses will throw a corresponding error created by the [`http-err
 
 Will be thrown when initialising the `BizOpsClient` class with incomplete configuration or when calling methods with incorrect arguments.
 
-### `ValidationError`
-
-TODO
-
 ### `GraphQLError`
 
 Thrown when responses from the GraphQL API include any [errors](https://github.com/graphql/graphql-spec/blob/master/spec/Section%207%20--%20Response.md#errors). This includes a `details` property which can be inspected to find out more.
