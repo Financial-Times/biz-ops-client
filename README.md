@@ -1,6 +1,6 @@
 # @financial-times/biz-ops-client
 
-[![CircleCI](https://img.shields.io/circleci/project/github/Financial-Times/biz-ops-client/master.svg)](https://circleci.com/gh/Financial-Times/biz-ops-client) [![NPM version](https://img.shields.io/npm/v/@financial-times/biz-ops-client.svg)](https://www.npmjs.com/package/@financial-times/biz-ops-client)
+[![CircleCI](https://img.shields.io/circleci/project/github/Financial-Times/biz-ops-client/main.svg)](https://circleci.com/gh/Financial-Times/biz-ops-client) [![NPM version](https://img.shields.io/npm/v/@financial-times/biz-ops-client.svg)](https://www.npmjs.com/package/@financial-times/biz-ops-client)
 
 Safely send and retrieve data from the [FT Biz Ops API][1].
 
