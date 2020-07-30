@@ -4,9 +4,12 @@ orbs:
   ft-snyk-orb: financial-times/ft-snyk-orb@0
 
 references:
+  #
+  # Workspace
+  #
   default_container_config: &default_container_config
     docker:
-      - image: circleci/node:12.16
+      - image: circleci/node:12.18
 
   workspace_root: &workspace_root ~/project
 
@@ -14,6 +17,9 @@ references:
     attach_workspace:
       at: *workspace_root
 
+  #
+  # Caching
+  #
   npm_cache_key: &npm_cache_key cache-v001-{{ .Branch }}-{{ checksum "./package-lock.json" }}
 
   create_npm_cache: &create_npm_cache
@@ -27,14 +33,26 @@ references:
       keys:
         - *npm_cache_key
 
-  filters_main_branch: &filters_main_branch
-    branches:
-      only:
-        - main
-
-  only_version_tags: &only_version_tags
+  #
+  # Filters
+  #
+  allow_all: &allow_all
     tags:
-      only: /^v[0-9]+\.[0-9]+\.[0-9]+(-(alpha|beta)\.\d+)?$/
+      only: /.*/
+    branches:
+      only: /.*/
+
+  only_branch_builds: &only_branch_builds
+    tags:
+      ignore: /.*/
+    branches:
+      only: /.*/
+
+  only_tagged_builds: &only_tagged_builds
+    tags:
+      only: /^v\d+\.\d+\.\d+(?:-\w+\.\d+)?$/
+    branches:
+      ignore: /.*/
 
 jobs:
   install:
@@ -70,7 +88,7 @@ jobs:
           name: Run verify
           command: make verify -j 3
       - run:
-          name: Run unit tests
+          name: Run tests
           command: make test
 
   publish:
@@ -93,30 +111,31 @@ jobs:
 workflows:
   version: 2
 
-  install-build-test:
+  default-workflow:
     jobs:
       - install:
           context: rel-eng-creds
+          filters: *allow_all
       - build:
+          filters: *allow_all
           requires:
             - install
       - test:
+          filters: *allow_all
           requires:
             - install
             - build
       - ft-snyk-orb/scan-js-packages:
           context: rel-eng-creds
+          filters: *only_branch_builds
           requires:
             - install
             - build
       - publish:
           context: rel-eng-creds
+          filters: *only_tagged_builds
           requires:
             - install
             - build
             - test
             - ft-snyk-orb/scan-js-packages
-          filters:
-            <<: *only_version_tags
-            branches:
-              ignore: /.*/
