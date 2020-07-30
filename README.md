@@ -117,10 +117,6 @@ Will be thrown when initialising the `BizOpsClient` class with incomplete config
 
 TODO
 
-### `NotImplementedError`
-
-TODO
-
 ### `GraphQLError`
 
 Thrown when responses from the GraphQL API include any [errors](https://github.com/graphql/graphql-spec/blob/master/spec/Section%207%20--%20Response.md#errors). This includes a `details` property which can be inspected to find out more.
