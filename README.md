@@ -75,7 +75,7 @@ The `BizOpsClient` class accepts the following parameters:
 
 ### API
 
-All methods return a promise. If the API responds with any unsuccessful (non-200) status code the promise will be rejected with the corresponding [HTTP error](#errors).
+All methods return a promise. If the API responds with any unsuccessful (non-20x) status code the promise will be rejected with the corresponding [HTTP error](#errors).
 
 #### `graphQL.get(query: string, variables?: object)`
 
@@ -107,7 +107,7 @@ Deletes an existing record. Resolves to `true` if the request is successful. Rej
 
 ### `HTTPError`
 
-All non-200 responses will throw an error created by the [`http-errors`](https://www.npmjs.com/package/http-errors) package.
+All non-20x responses will throw a corresponding error created by the [`http-errors`](https://www.npmjs.com/package/http-errors) package. If the API returns a detailed error this will be used as the error message. The raw response may be appended to the error as a `response` property for further inspection.
 
 ### `ConfigurationError`
 
