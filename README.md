@@ -77,13 +77,13 @@ The `BizOpsClient` class accepts the following parameters:
 
 All methods return a promise. If the API responds with an unsuccessful (non-20x) status code then the promise will be rejected with a corresponding [HTTP error](#errors).
 
-#### `graphQL.get(query: string, variables?: object)`
+#### `graphQL.get(query: string, variables?: object, strict?: boolean)`
 
-Fetches data from the Biz Ops GraphQL API using a `GET` request. You should use this if data does not need to be up-to-date. Resolves to the data returned. Rejects with a [`GraphQLError`](#errors) if the returned data includes any errors.
+Fetches data from the Biz Ops GraphQL API using a `GET` request. You should use this if data does not need to be up-to-date. Resolves to the data returned. Rejects with a [`BadRequest`](#errors) if the query is invalid. When "strict mode" is enabled the promise will also be rejected with a [`GraphQLError`](#errors) if a successful response includes any errors.
 
-#### `graphQL.post(query: string, variables?: object)`
+#### `graphQL.post(query: string, variables?: object, strict?: boolean)`
 
-Fetches data from the Biz Ops GraphQL API using a `POST` request. You should use this if data must always be up-to-date. Resolves to the data returned. Rejects with a [`GraphQLError`](#errors) if the returned data includes any errors.
+Fetches data from the Biz Ops GraphQL API using a `POST` request. You should use this if data must always be up-to-date. Resolves to the data returned. Rejects with a [`BadRequest`](#errors) if the query is invalid. When "strict mode" is enabled the promise will also be rejected with a [`GraphQLError`](#errors) if a successful response includes any errors.
 
 #### `node.head(type: string, code: string)`
 
