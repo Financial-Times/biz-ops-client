@@ -92,7 +92,7 @@ Verifies if a record exists. Resolves to `true` if the request is successful. Re
 
 #### `node.post(type: string, code: string, body: object, params?: object)`
 
-Creates a new record. Resolves to the confirmation details if the request is successful. Rejects with a [`BadRequest`](#errors) error if the data does not match the [schema].
+Creates a new record. Resolves with the updated record if the request is successful. Rejects with a [`BadRequest`](#errors) error if the data does not match the [schema].
 
 This method also accepts additional URL parameters to be set:
 
@@ -102,7 +102,7 @@ This method also accepts additional URL parameters to be set:
 
 #### `node.patch(type: string, code: string, body: object, params?: object)`
 
-Updates an existing record. Resolves to the confirmation details if the request is successful. Rejects with a [`BadRequest`](#errors) error if the data does not match the [schema].
+Updates an existing record. Resolves with the updated record if the request is successful. Rejects with a [`BadRequest`](#errors) error if the data does not match the [schema].
 
 This method also accepts additional URL parameters to be set:
 
