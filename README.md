@@ -64,12 +64,13 @@ Once initialised the Biz Ops client provides [methods](#api) to retrieve data fr
 
 The `BizOpsClient` class accepts the following parameters:
 
-| Option       | Type   | Required | Description                                                          |
-| ------------ | ------ | -------- | -------------------------------------------------------------------- |
-| `apiKey`     | String | Yes      | API key for the [FT API Gateway](http://developer.ft.com)            |
-| `systemCode` | String | Yes\*    | A Biz Ops system code which identifies the service making requests.  |
-| `userID`     | String | Yes\*    | A user ID which identifies who is making a request                   |
-| `host`       | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`. |
+| Option       | Type   | Required | Description                                                             |
+| ------------ | ------ | -------- | ----------------------------------------------------------------------- |
+| `apiKey`     | String | Yes      | API key for the [FT API Gateway](http://developer.ft.com)               |
+| `systemCode` | String | Yes\*    | A Biz Ops system code which identifies the service making requests.     |
+| `userID`     | String | Yes\*    | A user ID which identifies who is making a request                      |
+| `host`       | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`.    |
+| `timeout`    | Number |          | Maximum time in milliseconds to wait for a response, defaults to `8000` |
 
 \* you must configure at least one of `systemCode` or `userID`.
 
