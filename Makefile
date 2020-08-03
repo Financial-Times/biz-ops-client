@@ -26,6 +26,7 @@ verify:
 install:
 
 build:
+	tsc
 
 run:
 
