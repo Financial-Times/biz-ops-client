@@ -131,3 +131,33 @@ Will be thrown when initialising the `BizOpsClient` class with incomplete config
 ### `GraphQLError`
 
 Thrown when responses from the GraphQL API include any [errors](https://github.com/graphql/graphql-spec/blob/master/spec/Section%207%20--%20Response.md#errors). This includes a `details` property which can be inspected to find out more.
+
+## Example
+
+This example demonstrates how to catch and log an error when a GraphQL query fails. Note that this example uses `return await` to ensure that exceptions are caught by the `catch` block defined in the function below.
+
+```js
+const nLogger = require('@financial-times/n-logger').default;
+const { BizOpsClient } = require('@financial-times/biz-ops-client');
+
+const client = new BizOpsClient({
+	systemCode: 'my-service-name',
+	apiKey: process.env.BIZ_OPS_API_KEY,
+	host: process.env.BIZ_OPS_API_URL,
+});
+
+async function bizOpsQuery(query) {
+	try {
+		return await client.graphQL.post(query);
+	} catch (error) {
+		nLogger.error({
+			event: 'BIZ_OPS_QUERY_FAILED',
+			error: error.message,
+		});
+
+		return Promise.reject(error);
+	}
+}
+
+module.exports = { bizOpsQuery };
+```
