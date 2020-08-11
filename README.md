@@ -118,6 +118,10 @@ Deletes an existing record. Resolves to `true` if the request is successful. Rej
 [schema]: https://github.com/Financial-Times/biz-ops-schema/tree/master/schema
 [field locking]: https://github.com/Financial-Times/biz-ops-api/blob/master/ENDPOINTS.md#field-locking
 
+#### `nodeAbsorb.post(type: string, targetCode: string, sourceCode: string)`
+
+Merges two records by copying properties from the source node to the target node and deletes the original source node when complete. Resolves with the updated target record if the request is successful. Rejects with a [`NotFound`](#errors) error if either of the requested records cannot be found.
+
 ## Errors
 
 ### `HTTPError`
