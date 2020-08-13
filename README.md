@@ -71,13 +71,12 @@ The `BizOpsClient` class accepts the following parameters:
 | `userID`     | String | Yes\*    | A user ID which identifies who is making a request                      |
 | `host`       | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`.    |
 | `timeout`    | Number |          | Maximum time in milliseconds to wait for a response, defaults to `8000` |
-| `rps`        | Number |          | Maximum number of API requests per second, defaults to `1`              |
 
 \* you must configure at least one of `systemCode` or `userID`.
 
 ### API
 
-All methods return a promise. If the API responds with an unsuccessful (non-20x) status code then the promise will be rejected with a corresponding [HTTP error](#errors). Please note that all API requests will be rate limited.
+All methods return a promise. If the API responds with an unsuccessful (non-20x) status code then the promise will be rejected with a corresponding [HTTP error](#errors). Please note that requests are rate limited by this client to match the Biz Ops API which accepts a maximum of 100 requests every 5 seconds.
 
 #### `graphQL.get(query: string, variables?: object, strict?: boolean)`
 
