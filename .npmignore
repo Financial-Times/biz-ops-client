@@ -1,6 +1,7 @@
 **/__tests__/**
+.circleci/
+.github/
 .vscode/
-.circleci
 .editorconfig
 .env
 .eslintcache
