@@ -124,8 +124,7 @@ Merges two records by copying properties from the source node to the target node
 
 #### `child(options?: object)`
 
-Sometimes you may need multiple instances of the client. You can do that by calling `new Client()` multiple times but you will lose the benefits of using one single client, such as the long lived connections and rate limiting. This method returns a new client instance that shares these internals with the parent client.
-You can override the parent client options by providing additional [options](#options).
+Sometimes you may need multiple instances of the client. You can do that by calling `new Client()` multiple times but you will lose the benefits of using one single client, such as the long lived connections and rate limiting. This method returns a new client instance that shares these internals with the parent client. You can override the parent client options by providing additional [options](#options).
 
 ## Errors
 
