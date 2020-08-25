@@ -122,6 +122,11 @@ Deletes an existing record. Resolves to `true` if the request is successful. Rej
 
 Merges two records by copying properties from the source node to the target node and deletes the original source node when complete. Resolves with the updated target record if the request is successful. Rejects with a [`NotFound`](#errors) error if either of the requested records cannot be found.
 
+#### `child(options?: object)`
+
+Sometimes you may need multiple instances of the client. You can do that by calling `new Client()` multiple times but you will lose the benefits of using one single client, such as the long lived connections and rate limiting. This method returns a new client instance that shares these internals with the parent client.
+You can override the parent client options by providing additional [options](#options).
+
 ## Errors
 
 ### `HTTPError`
