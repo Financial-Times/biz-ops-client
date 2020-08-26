@@ -140,7 +140,9 @@ Will be thrown when initialising the `BizOpsClient` class with incomplete config
 
 Thrown when responses from the GraphQL API include any [errors](https://github.com/graphql/graphql-spec/blob/master/spec/Section%207%20--%20Response.md#errors). This includes a `details` property which can be inspected to find out more.
 
-## Example
+## Examples
+
+### Catching and logging errors
 
 This example demonstrates how to catch and log an error when a GraphQL query fails. Note that this example uses `return await` to ensure that exceptions are caught by the `catch` block defined in the function below.
 
@@ -168,4 +170,36 @@ async function bizOpsQuery(query) {
 }
 
 module.exports = { bizOpsQuery };
+```
+
+### Creating a child client
+
+This example demonstrates how to create a child client for each of your application users. It shows how to override the parent client's options to associated a username with requests.
+
+```js
+const { BizOpsClient } = require('./');
+
+const client = new BizOpsClient({
+	systemCode: 'my-service-name',
+	apiKey: process.env.BIZ_OPS_API_KEY,
+	host: process.env.BIZ_OPS_API_URL,
+});
+
+async function appRoute(request, response, next) {
+	const child = client.child({
+		userId: request.locals.username,
+	});
+
+	try {
+		const data = await child.node.get(
+			request.params.type,
+			request.params.code,
+		);
+
+		response.json(data);
+	} catch (error) {
+		response.status(error.code || 500);
+		next(error);
+	}
+}
 ```
