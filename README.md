@@ -39,11 +39,9 @@ npm install -S @financial-times/biz-ops-client
 
 ## Features
 
--   Full coverage for the Biz Ops API\*
+-   Full coverage for the Biz Ops API
 -   Stop writing boilerplate, write your requests and get on with your day!
 -   Detailed error codes and messages when things don't go to plan
-
-\* Coming soon!
 
 ## Usage
 
@@ -58,7 +56,7 @@ const client = new BizOpsClient({
 });
 ```
 
-Once initialised the Biz Ops client provides [methods](#api) to retrieve data from the Biz Ops API.
+Once initialised the Biz Ops client provides [methods](#api) to send and retrieve data from the Biz Ops API.
 
 ### Options
 
@@ -71,6 +69,7 @@ The `BizOpsClient` class accepts the following parameters:
 | `userID`     | String | Yes\*    | A user ID which identifies who is making a request                      |
 | `host`       | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`.    |
 | `timeout`    | Number |          | Maximum time in milliseconds to wait for a response, defaults to `8000` |
+| `rps`        | Number |          | Maximum number of API requests per second, defaults to `18`             |
 
 \* you must configure at least one of `systemCode` or `userID`.
 
