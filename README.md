@@ -110,9 +110,13 @@ This method also accepts additional URL parameters to be set:
 -   `unlockFields` a list of fields to enable any system to write these fields, see [field locking] for more information.
 -   `relationshipAction` either `"merge"` or `"replace"` which specifies the behaviour when modifying relationships.
 
-#### `node.delete(type: string, code: string)`
+#### `node.delete(type: string, code: string, params?: object)`
 
 Deletes an existing record. Resolves to `true` if the request is successful. Rejects with a [`NotFound`](#errors) error if the requested record cannot be found or a [`Conflict`](#errors) error if the record cannot be deleted.
+
+This method also accepts additional URL parameters to be set:
+
+-   `force` a boolean which allows the deletion of a node even if it has relationships
 
 [schema]: https://github.com/Financial-Times/biz-ops-schema/tree/master/schema
 [field locking]: https://github.com/Financial-Times/biz-ops-api/blob/master/ENDPOINTS.md#field-locking
