@@ -32,4 +32,4 @@ run:
 test: unit-test
 
 unit-test:
-	jest $(if $(CI),--runInBand,--watch)
+	npx jest $(if $(CI),--runInBand,--watch)
