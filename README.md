@@ -68,7 +68,7 @@ The `BizOpsClient` class accepts the following parameters:
 | `systemCode` | String | Yes\*    | A Biz Ops system code which identifies the service making requests.                                 |
 | `userID`     | String | Yes\*    | A user ID which identifies who is making a request                                                  |
 | `host`       | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`.                                |
-| `timeout`    | Number |          | Maximum time in milliseconds to wait for a response, defaults to `15000`                             |
+| `timeout`    | Number |          | Maximum time in milliseconds to wait for a response, defaults to `15000`                            |
 | `rps`        | Number |          | Maximum number of API requests per second, defaults to `18` - highly recommended not to change this |
 
 \* you must configure at least one of `systemCode` or `userID`.
