@@ -101,7 +101,7 @@ This method also accepts additional URL parameters to be set:
 
 #### `node.patch(type: string, code: string, body: object, params?: object)`
 
-Updates an existing record. Resolves with the updated record if the request is successful. Rejects with a [`BadRequest`](#errors) error if the data does not match the [schema].
+Updates an existing record (or creates if it doesn't already exist). Resolves with the updated record if the request is successful. Rejects with a [`BadRequest`](#errors) error if the data does not match the [schema].
 
 This method also accepts additional URL parameters to be set:
 
