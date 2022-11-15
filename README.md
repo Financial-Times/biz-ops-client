@@ -10,7 +10,7 @@ const { BizOpsClient } = require('@financial-times/biz-ops-client');
 const bizOps = new BizOpsClient(options);
 
 const query = `{
-	System(code: "my-system") {
+	systems(where: {code: "my-system"}) {
 		name
 		supportedBy {
 			slack
