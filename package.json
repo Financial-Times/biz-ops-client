@@ -27,10 +27,10 @@
   },
   "dependencies": {
     "@dotcom-reliability-kit/logger": "^1.0.3",
+    "bottleneck": "^2.19.5",
     "http-errors": "^1.8.0",
     "mixin-deep": "^2.0.1",
     "node-fetch": "^2.6.7",
-    "p-ratelimit": "^1.0.1",
     "url-join": "^4.0.0"
   },
   "engines": {
