@@ -21,7 +21,8 @@
   "devDependencies": {
     "@financial-times/rel-engage": "^8.0.7",
     "@types/jest": "^26.0.20",
-    "jest": "^28.1.0"
+    "jest": "^28.1.0",
+    "nock": "^13.0.7"
   },
   "dependencies": {
     "bottleneck": "^2.19.5",
