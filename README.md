@@ -150,7 +150,7 @@ Thrown when responses from the GraphQL API include any [errors](https://github.c
 This example demonstrates how to catch and log an error when a GraphQL query fails. Note that this example uses `return await` to ensure that exceptions are caught by the `catch` block defined in the function below.
 
 ```js
-const logger = require('@dotcom-reliability-kit/logger');
+const nLogger = require('@financial-times/n-logger').default;
 const { BizOpsClient } = require('@financial-times/biz-ops-client');
 
 const client = new BizOpsClient({
@@ -163,7 +163,7 @@ async function bizOpsQuery(query) {
 	try {
 		return await client.graphQL.post(query);
 	} catch (error) {
-		logger.error(error, {
+		nLogger.error(error, {
 			event: 'BIZ_OPS_QUERY_FAILED',
 		});
 		return Promise.reject(error);

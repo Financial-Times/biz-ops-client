@@ -22,11 +22,9 @@
     "@financial-times/rel-engage": "^8.0.7",
     "@types/jest": "^26.0.20",
     "jest": "^28.1.0",
-    "nock": "^13.0.7",
-    "pino-pretty": "^10.0.0"
+    "nock": "^13.0.7"
   },
   "dependencies": {
-    "@dotcom-reliability-kit/logger": "^1.0.3",
     "bottleneck": "^2.19.5",
     "http-errors": "^1.8.0",
     "mixin-deep": "^2.0.1",
