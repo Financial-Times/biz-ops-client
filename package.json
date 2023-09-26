@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/Financial-Times/biz-ops-client",
   "devDependencies": {
-    "@financial-times/rel-engage": "^8.0.8",
+    "@financial-times/rel-engage": "^8.0.9",
     "@types/jest": "^26.0.20",
     "jest": "^28.1.0",
     "nock": "^13.0.7"
