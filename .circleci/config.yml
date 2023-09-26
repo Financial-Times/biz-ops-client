@@ -9,7 +9,7 @@ references:
   #
   default_container_config: &default_container_config
     docker:
-      - image: cimg/node:14.18.3
+      - image: cimg/node:18.18.0
 
   workspace_root: &workspace_root ~/project
 
