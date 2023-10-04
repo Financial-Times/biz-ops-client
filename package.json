@@ -25,7 +25,6 @@
     "nock": "^13.0.7"
   },
   "dependencies": {
-    "@dotcom-reliability-kit/crash-handler": "^3.0.2",
     "bottleneck": "^2.19.5",
     "http-errors": "^1.8.0",
     "mixin-deep": "^2.0.1",
@@ -33,9 +32,10 @@
     "url-join": "^4.0.0"
   },
   "engines": {
-    "node": ">= 18"
+    "node": ">= 14"
   },
   "volta": {
-    "node": "18.18.0"
+    "node": "18.18.0",
+    "npm": "9.8.1"
   }
 }
