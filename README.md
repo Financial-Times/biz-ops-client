@@ -25,7 +25,7 @@ const result = await bizOps.graphQL.get(query);
 
 ## Installation
 
-This is package for [Node.js] and is available through the [npm] registry. Node 12 or higher is required.
+This is package for [Node.js] and is available through the [npm] registry. Using Node 18 or higher is recommended.
 
 Installation is done using the [npm install] command:
 
