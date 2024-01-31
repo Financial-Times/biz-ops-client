@@ -79,11 +79,13 @@ All methods return a promise. If the API responds with an unsuccessful (non-20x)
 
 #### `graphQL.get(query: string, variables?: object, strict?: boolean)`
 
-Fetches data from the Biz Ops GraphQL API using a `GET` request. You should use this if data does not need to be up-to-date. Resolves to the data returned. Rejects with a [`BadRequest`](#errors) if the query is invalid. When "strict mode" is enabled the promise will also be rejected with a [`GraphQLError`](#errors) if a successful response includes any errors.
+Fetches data from the Biz Ops GraphQL API using a `GET` request. You should use this if data does not need to be up-to-date. Resolves to the data returned. If the server responds with a http error then this method rejects with the equivalent error provided by the [http-errors library](https://www.npmjs.com/package/http-errors#list-of-all-constructors). When "strict mode" is enabled the promise will also be rejected with a [`GraphQLError`](#errors) if a successful response includes any errors.
 
 #### `graphQL.post(query: string, variables?: object, strict?: boolean)`
 
-Fetches data from the Biz Ops GraphQL API using a `POST` request. You should use this if data must always be up-to-date. Resolves to the data returned. Rejects with a [`BadRequest`](#errors) if the query is invalid. When "strict mode" is enabled the promise will also be rejected with a [`GraphQLError`](#errors) if a successful response includes any errors.
+Fetches data from the Biz Ops GraphQL API using a `POST` request. You should use this if data must always be up-to-date. Resolves to the data returned. If the server responds with a http error then this method rejects with the equivalent error provided by the [http-errors library](https://www.npmjs.com/package/http-errors#list-of-all-constructors). When "strict mode" is enabled the promise will also be rejected with a [`GraphQLError`](#errors) if a successful response includes any errors.
+
+> Note that GraphQL error handling may not align with your expectations if you're used to working with REST. Our server complies with the draft GraphQL over Http spec, and [here you can see examples of types of errors and responses](https://github.com/graphql/graphql-over-http/blob/main/spec/GraphQLOverHTTP.md#examples)
 
 #### `node.head(type: string, code: string)`
 
