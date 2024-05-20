@@ -62,16 +62,20 @@ Once initialised the Biz Ops client provides [methods](#api) to send and retriev
 
 The `BizOpsClient` class accepts the following parameters:
 
-| Option       | Type   | Required | Description                                                                                         |
-| ------------ | ------ | -------- | --------------------------------------------------------------------------------------------------- |
-| `apiKey`     | String | Yes      | API key for the [FT API Gateway](http://developer.ft.com)                                           |
-| `systemCode` | String | Yes\*    | A Biz Ops system code which identifies the service making requests.                                 |
-| `userID`     | String | Yes\*    | A user ID which identifies who is making a request                                                  |
-| `host`       | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`.                                |
-| `timeout`    | Number |          | Maximum time in milliseconds to wait for a response, defaults to `15000`                            |
-| `rps`        | Number |          | Maximum number of API requests per second, defaults to `18` - highly recommended not to change this |
+| Option            | Type   | Required | Description                                                                                         |
+| ----------------- | ------ | -------- | --------------------------------------------------------------------------------------------------- |
+| `apiKey`          | String | Yes      | API key for the [FT API Gateway](http://developer.ft.com)                                           |
+| `systemCode`      | String | Yes\*    | A Biz Ops system code which identifies the service making requests.                                 |
+| `userID`          | String | Yes\*    | A user ID which identifies who is making a request                                                  |
+| `host`            | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`.                                |
+| `nodeEndpoint`    | String | \*\*     | URL for the Biz Ops API node requests, defaults to `/v2/node`.                                      |
+| `graphqlEndpoint` | String | \*\*     | URL for the Biz Ops API graphql requests, defaults to `/graphql`.                                   |
+| `timeout`         | Number |          | Maximum time in milliseconds to wait for a response, defaults to `15000`                            |
+| `rps`             | Number |          | Maximum number of API requests per second, defaults to `18` - highly recommended not to change this |
 
 \* you must configure at least one of `systemCode` or `userID`.
+
+\*\* once in a while when we carry out a migration/upgrade we may ask you to use a versioned endpoint during the transition period. e.g. `graphqlEndpoint='/graphqlV5'`
 
 ### API
 
