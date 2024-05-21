@@ -75,7 +75,7 @@ The `BizOpsClient` class accepts the following parameters:
 
 \* you must configure at least one of `systemCode` or `userID`.
 
-\*\* once in a while when we carry out a migration/upgrade we may ask you to use a versioned endpoint during the transition period. e.g. `graphqlEndpoint='/graphqlV5'`
+\*\* once in a while when we carry out a migration/upgrade we may ask you to use a versioned endpoint during the transition period. e.g. `graphqlEndpoint='/v3/graphql'`
 
 ### API
 
