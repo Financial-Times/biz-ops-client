@@ -140,6 +140,10 @@ Creates or modifies a batch of records of a given record type.
 -   Resolves with a success message and total number of records created or modified.
 -   Rejects with a [`HTTPError`](#errors) error if there is any payload validation error(s).
 
+This method also accepts additional URL parameter to be set:
+
+`dryRun` a boolean(default `false`) which when set to `true` allows you to only just validate the request and the batch payload without performing the actual creation or modification of records
+
 #### `batch.delete(type: string, codes: object[], params?: object)`
 
 Deletes a batch of records of a given record type.
@@ -147,6 +151,10 @@ Deletes a batch of records of a given record type.
 -   Requires its payload(valid Biz ops codes) to be sent as a JSON array
 -   Resolves with a success message and total number of records deleted.
 -   Rejects with a [`HTTPError`](#errors) error if there is any payload validation error(s).
+
+This method also accepts additional URL parameter to be set:
+
+`dryRun` a boolean(default `false`) which when set to `true` allows you to only just validate the request and the batch payload without performing the actual deletion of records
 
 #### `child(options?: object)`
 
