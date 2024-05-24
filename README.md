@@ -70,6 +70,7 @@ The `BizOpsClient` class accepts the following parameters:
 | `host`            | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`.                                |
 | `nodeEndpoint`    | String | \*\*     | URL for the Biz Ops API node requests, defaults to `/v2/node`.                                      |
 | `graphqlEndpoint` | String | \*\*     | URL for the Biz Ops API graphql requests, defaults to `/graphql`.                                   |
+| `batchEndpoint`   | String | \*\*     | URL for the Biz Ops API batch requests, defaults to `/v1/batch`.                                    |
 | `timeout`         | Number |          | Maximum time in milliseconds to wait for a response, defaults to `15000`                            |
 | `rps`             | Number |          | Maximum number of API requests per second, defaults to `18` - highly recommended not to change this |
 
