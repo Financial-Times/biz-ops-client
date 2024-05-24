@@ -132,6 +132,22 @@ This method also accepts additional URL parameters to be set:
 
 Merges two records by copying properties from the source node to the target node and deletes the original source node when complete. Resolves with the updated target record if the request is successful. Rejects with a [`NotFound`](#errors) error if either of the requested records cannot be found.
 
+#### `batch.patch(type: string, body: object[], params?: object)`
+
+Creates or modifies a batch of records of a given record type.
+
+-   Requires its payload(records) to be sent as a JSON array
+-   Resolves with a success message and total number of records created or modified.
+-   Rejects with a [`HTTPError`](#errors) error if there is any payload validation error(s).
+
+#### `batch.delete(type: string, codes: object[], params?: object)`
+
+Deletes a batch of records of a given record type.
+
+-   Requires its payload(valid Biz ops codes) to be sent as a JSON array
+-   Resolves with a success message and total number of records deleted.
+-   Rejects with a [`HTTPError`](#errors) error if there is any payload validation error(s).
+
 #### `child(options?: object)`
 
 Sometimes you may need multiple instances of the client. You can do that by calling `new Client()` multiple times but you will lose the benefits of using one single client, such as the long lived connections and rate limiting. This method returns a new client instance that shares these internals with the parent client. You can override the parent client options by providing additional [options](#options).
