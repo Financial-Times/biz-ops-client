@@ -70,6 +70,7 @@ The `BizOpsClient` class accepts the following parameters:
 | `host`            | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`.                                |
 | `nodeEndpoint`    | String | \*\*     | URL for the Biz Ops API node requests, defaults to `/v2/node`.                                      |
 | `graphqlEndpoint` | String | \*\*     | URL for the Biz Ops API graphql requests, defaults to `/graphql`.                                   |
+| `batchEndpoint`   | String | \*\*     | URL for the Biz Ops API batch requests, defaults to `/v1/batch`.                                    |
 | `timeout`         | Number |          | Maximum time in milliseconds to wait for a response, defaults to `15000`                            |
 | `rps`             | Number |          | Maximum number of API requests per second, defaults to `18` - highly recommended not to change this |
 
@@ -130,6 +131,30 @@ This method also accepts additional URL parameters to be set:
 #### `nodeAbsorb.post(type: string, targetCode: string, sourceCode: string)`
 
 Merges two records by copying properties from the source node to the target node and deletes the original source node when complete. Resolves with the updated target record if the request is successful. Rejects with a [`NotFound`](#errors) error if either of the requested records cannot be found.
+
+#### `batch.patch(type: string, body: object[], params?: object)`
+
+Creates or modifies a batch of records of a given record type.
+
+-   Requires its payload(records) to be sent as a JSON array
+-   Resolves with a success message and total number of records created or modified.
+-   Rejects with a [`HTTPError`](#errors) error if there is any payload validation error(s).
+
+This method also accepts additional URL parameter to be set:
+
+`dryRun` a boolean(default `false`) which when set to `true` allows you to only just validate the request and the batch payload without performing the actual creation or modification of records
+
+#### `batch.delete(type: string, codes: object[], params?: object)`
+
+Deletes a batch of records of a given record type.
+
+-   Requires its payload(valid Biz ops codes) to be sent as a JSON array
+-   Resolves with a success message and total number of records deleted.
+-   Rejects with a [`HTTPError`](#errors) error if there is any payload validation error(s).
+
+This method also accepts additional URL parameter to be set:
+
+`dryRun` a boolean(default `false`) which when set to `true` allows you to only just validate the request and the batch payload without performing the actual deletion of records
 
 #### `child(options?: object)`
 
