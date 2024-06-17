@@ -10,7 +10,7 @@ const { BizOpsClient } = require('@financial-times/biz-ops-client');
 const bizOps = new BizOpsClient(options);
 
 const query = `{
-	systems(where: {code: "my-system"}) {
+	systems(where: { code: "my-system" }) {
 		name
 		supportedBy {
 			slack
@@ -41,6 +41,7 @@ npm install -S @financial-times/biz-ops-client
 
 -   Full coverage for the Biz Ops API
 -   Stop writing boilerplate, write your requests and get on with your day!
+-   Respects rate limits and sets required headers automatically
 -   Detailed error codes and messages when things don't go to plan
 
 ## Usage
@@ -70,7 +71,6 @@ The `BizOpsClient` class accepts the following parameters:
 | `host`            | String |          | URL for the Biz Ops API, defaults to `"https://api.ft.com/biz-ops"`.                                |
 | `nodeEndpoint`    | String | \*\*     | URL for the Biz Ops API node requests, defaults to `/v2/node`.                                      |
 | `graphqlEndpoint` | String | \*\*     | URL for the Biz Ops API graphql requests, defaults to `/graphql`.                                   |
-| `batchEndpoint`   | String | \*\*     | URL for the Biz Ops API batch requests, defaults to `/v1/batch`.                                    |
 | `timeout`         | Number |          | Maximum time in milliseconds to wait for a response, defaults to `15000`                            |
 | `rps`             | Number |          | Maximum number of API requests per second, defaults to `18` - highly recommended not to change this |
 
@@ -142,7 +142,7 @@ Creates or modifies a batch of records of a given record type.
 
 This method also accepts additional URL parameter to be set:
 
-`dryRun` a boolean(default `false`) which when set to `true` allows you to only just validate the request and the batch payload without performing the actual creation or modification of records
+- `dryRun` a boolean (defaults to `false`) which when enabled allows you to validate the request and the batch payload without performing the actual creation or modification of records.
 
 #### `batch.delete(type: string, codes: object[], params?: object)`
 
@@ -154,7 +154,7 @@ Deletes a batch of records of a given record type.
 
 This method also accepts additional URL parameter to be set:
 
-`dryRun` a boolean(default `false`) which when set to `true` allows you to only just validate the request and the batch payload without performing the actual deletion of records
+- `dryRun` a boolean (defaults to `false`) which when enabled allows you to validate the request and the batch payload without performing the actual deletion of records.
 
 #### `child(options?: object)`
 
@@ -181,7 +181,6 @@ Thrown when responses from the GraphQL API include any [errors](https://github.c
 This example demonstrates how to catch and log an error when a GraphQL query fails. Note that this example uses `return await` to ensure that exceptions are caught by the `catch` block defined in the function below.
 
 ```js
-const nLogger = require('@financial-times/n-logger').default;
 const { BizOpsClient } = require('@financial-times/biz-ops-client');
 
 const client = new BizOpsClient({
@@ -194,9 +193,10 @@ async function bizOpsQuery(query) {
 	try {
 		return await client.graphQL.post(query);
 	} catch (error) {
-		nLogger.error(error, {
+		console.error(error, {
 			event: 'BIZ_OPS_QUERY_FAILED',
 		});
+
 		return Promise.reject(error);
 	}
 }
